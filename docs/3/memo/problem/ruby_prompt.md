@@ -54,3 +54,16 @@
 * `<rt>`のテキストノードのみ修正
 * 旧`<ruby>`を削除する
 
+## 旧`<ruby>`を削除する
+
+1. 選択範囲の子孫ノードを取得する
+1. 1のうち`<ruby>`なら削除する
+
+* 選択要素を削除する：[Range.deleteContents()][]
+* 選択テキストを取得する：`window.getSelection().toString()`
+
+[Range.deleteContents()]:https://developer.mozilla.org/en-US/docs/Web/API/Range/deleteContents
+
+
+　問題は選択テキスト。このままではルビのフリガナまで含まれてしまう。選択テキストからフリガナだけを除外したい。
+

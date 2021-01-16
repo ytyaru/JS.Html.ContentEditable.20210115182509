@@ -40,6 +40,8 @@ window.addEventListener('load', (event) => {
         console.log(range.startContainer.parentNode);
         console.log(range.startContainer.parentNode.nodeName);
         console.log(range.startContainer.parentNode.id);
+        console.log(range.startContainer.parentNode);
+        console.log(range.endContainer);
         if ('editor' !== range.startContainer.parentNode.id) { return null; }
 
         // 選択した文字列、選択した範囲、の２つを返す
