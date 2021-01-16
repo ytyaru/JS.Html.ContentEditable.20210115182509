@@ -10,7 +10,9 @@ window.addEventListener('load', (event) => {
     });
     document.addEventListener('compositionend', (event)=>{
         console.log('compositionend', event);
-        console.log('IME_YOMI: ', IME_YOMI);
+        const RUBY_TXT = event.data;
+        const RT_TXT = IME_YOMI;
+        console.log(`RUBY_TXT=${RUBY_TXT}\nRT_TXT=${RT_TXT}`);
     });
     document.addEventListener('keydown', (event)=>{
 //    document.querySelector('#editor').addEventListener('keydown', (event)=>{
