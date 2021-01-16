@@ -1,5 +1,13 @@
 window.addEventListener('load', (event) => {
+    let SELECTED = null; // contenteditable要素がselectionchangeしたときのRange
     let IME_YOMI = null; // IMEで全字ひらがなのときセットする
+    document.addEventListener('selectionchange', ()=>{
+//    document.querySelector('editor').addEventListener('selectionchange', ()=>{
+//    window.addEventListener('selectionchange', ()=>{
+        console.log('selectionchange', document.getSelection().focusOffset);
+//        SELECTED = window.getSelection().getRangeAt(0);
+        SELECTED = document.getSelection().getRangeAt(0);
+    });
     document.addEventListener('compositionstart', (event)=>{
         console.log('compositionstart', event);
     });
@@ -10,10 +18,21 @@ window.addEventListener('load', (event) => {
     });
     document.addEventListener('compositionend', (event)=>{
         console.log('compositionend', event);
-        const RUBY_TXT = event.data;
-        const RT_TXT = IME_YOMI;
-        console.log(`RUBY_TXT=${RUBY_TXT}\nRT_TXT=${RT_TXT}`);
+        if (SELECTED) {
+            const RUBY_TXT = event.data;
+            const RT_TXT = IME_YOMI;
+            console.log(`RUBY_TXT=${RUBY_TXT}\nRT_TXT=${RT_TXT}`);
+    //        const ruby = new Ruby(RUBY_TXT, RT_TXT).Element;
+
+//            const range = window.getSelection().getRangeAt(0);
+//            range.insertNode(new Ruby(RUBY_TXT, RT_TXT).Element); // rubyタグ追加
+            SELECTED.deleteContents(); // 最初のコンテンツ削除
+            SELECTED.insertNode(new Ruby(RUBY_TXT, RT_TXT).Element); // rubyタグ追加
+        }
+        event.cancelable = true;
+        event.preventDefault();
     });
+    /*
     document.addEventListener('keydown', (event)=>{
 //    document.querySelector('#editor').addEventListener('keydown', (event)=>{
         if (event.altKey && event.key == 'r') { // ctrlKey, shiftKey, altKey, metaKey
@@ -71,6 +90,7 @@ window.addEventListener('load', (event) => {
         ruby.appendChild(rt);
         return ruby;
     }
+    */
     /*
     document.querySelector('#editor').addEventListener("input",function(){
         console.log("input");
