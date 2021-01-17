@@ -51,10 +51,12 @@ window.addEventListener('load', (event) => {
 
             // バグ？　IMEの処理である確定テキスト入力をキャンセルしたい。ふつうはpreventDefault()で可能。だが縦書きCSSを使うと機能しなくなる。バグっぽい。削除するしかない。
             // https://stackoverflow.com/questions/62806395/event-preventdefault-does-not-work-when-i-input-cjkkorean-on-number-type-v-tex 
+            // {passive: false}を追加してもダメ。
+            // https://qiita.com/tochiji/items/4e9e64cabc0a1cd7a1ae
             event.stopImmediatePropagation();  //cancel next event//
             event.preventDefault();
-        }
-    });
+        } 
+    }, {passive: false});
     /*
     const EDITOR = document.querySelector('#editor');
     EDITOR.addEventListener("input", (event)=>{
